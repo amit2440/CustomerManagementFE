@@ -14,6 +14,7 @@ import { IconsComponent } from './icons/icons.component';
 import { MapsComponent } from './maps/maps.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { UpgradeComponent } from './upgrade/upgrade.component';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { UpgradeComponent } from './upgrade/upgrade.component';
     ComponentsModule,
     HomeRoutingModule,
     RouterModule,
+    ChartsModule
   ],
   declarations: [
     HomeComponent, 
