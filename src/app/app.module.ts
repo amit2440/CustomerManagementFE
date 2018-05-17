@@ -9,6 +9,7 @@ import { PagesModule } from './pages/pages.module';
 
 import { AppComponent } from './app.component';
 import { ChartsModule } from 'ng2-charts';
+import { CustomerService } from './services/customer.service'
 
 @NgModule({
   declarations: [
@@ -20,11 +21,10 @@ import { ChartsModule } from 'ng2-charts';
     HttpModule,
     RouterModule,
     ChartsModule,
-
     AppRoutingModule,
-    PagesModule,
+    PagesModule
   ],
-  providers: [],
+  providers: [CustomerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -6,7 +6,7 @@ export const ROUTES: RouteInfo[] = [
     { path: 'table-list', title: 'Update Customer',  icon:'update', class: '' },
     { path: 'icons', title: 'Todays Reminders',  icon:'alarm', class: '' },
     { path: 'typography', title: 'Internet Plans',  icon:'library_books', class: '' },
-    /*{ path: 'maps', title: 'Maps',  icon:'location_on', class: '' },
-    { path: 'notifications', title: 'Notifications',  icon:'notifications', class: '' },*/
-    { path: 'upgrade', title: '@Infinity Network',  icon:'copyright', class: 'active-pro' },
+    { path: 'maps', title: 'Maps',  icon:'location_on', class: '' },
+    { path: 'notifications', title: 'Notifications',  icon:'notifications', class: '' },
+    { path: 'upgrade', title: 'Infinity Network',  icon:'copyright', class: 'active-pro' },
 ];
