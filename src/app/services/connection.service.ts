@@ -2,20 +2,18 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
-import { Customer } from './../services/customer';
+import { Connection } from './../services/connection';
 
 
 @Injectable()
-export class CustomerService {
-        observableItems: Observable<Customer[]>
-	    allCustomers: Customer[] = [];
-        errorMessage: string;
-		url = "http://localhost:8080/custManagement/allCustomers";
+export class ConnectionService {
+        observableItems: Observable<Connection[]>
+		url = "http://localhost:8080/custManagement/allConnections";
 		headers: Headers;
     	options: RequestOptions;
-	    constructor(private http:Http) {}
-		
-		getAllCustomers(): Promise<any> {
+        constructor(private http:Http) {}
+        
+		getAllConnections(): Promise<any> {
 			return this.http
 				.get(this.url, this.options)
 				.toPromise()
