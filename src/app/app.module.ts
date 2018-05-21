@@ -12,6 +12,8 @@ import { ChartsModule } from 'ng2-charts';
 import { CustomerService } from './services/customer.service'
 import { ConnectionService } from './services/connection.service'
 import { ConnectionPipe } from './pipes/connection.pipe';
+import {NgxPaginationModule} from 'ngx-pagination'; 
+
 
 @NgModule({
   declarations: [
