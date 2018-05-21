@@ -8,6 +8,6 @@ export class DashBoardTable {
     "ConnectionDate" :Date
     "ConnectionStatus" :String;
     "ConnectionAddress" :String;
-    "LastPaymentStatus" :String;
+    "PaymentStatus" :String;
     constructor(){}
 }

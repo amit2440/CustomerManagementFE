@@ -8,7 +8,7 @@ export class Connection{
     connectionStatus: string;
     payments: Payment[];
     addresses: Address;
-    customer: Customer;
+    customer: any;
     connectionDate: Date;
     constructor(){}
 }

@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Customer } from '../../../services/customer';
+import { Connection } from '../../../services/connection';
+import { Address } from '../../../services/address';
+import { ConnectionService } from '../../../services/connection.service';
+import { CustomerService } from '../../../services/customer.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -7,9 +12,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserProfileComponent implements OnInit {
 
-  constructor() { }
+  constructor(private custService: CustomerService,private connectionService: ConnectionService) { }
 
   ngOnInit() {
   }
 
+  customer = new Customer();
+  onSubmit(): void {
+  this.custService.create(this.customer);
+}
+   
 }

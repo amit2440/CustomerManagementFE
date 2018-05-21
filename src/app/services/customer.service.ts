@@ -32,4 +32,12 @@ export class CustomerService {
 			console.error('An error occurred', error);
 			return Promise.reject(error.message || error);
 		}
+
+		create(customer: Customer): Promise<Customer> {
+			return this.http
+			  .post("http://localhost:8080/custManagement/createCustomer", JSON.stringify(customer), {headers: this.headers})
+			  .toPromise()
+			  .then(res => res.json() as Customer)
+			  .catch(this.handleError);
+		  }
 }

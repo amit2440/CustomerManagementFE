@@ -17,12 +17,14 @@ import { UpgradeComponent } from './upgrade/upgrade.component';
 import { ChartsModule } from 'ng2-charts';
 import { CustomerService } from '../../services/customer.service';
 import { Customer } from '../../services/customer';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
-    
+    FormsModule,
     ComponentsModule,
     HomeRoutingModule,
     RouterModule,
