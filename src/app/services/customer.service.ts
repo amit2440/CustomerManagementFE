@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 import { Customer } from './../services/customer';
 
 
+
 @Injectable()
 export class CustomerService {
         observableItems: Observable<Customer[]>
@@ -12,7 +13,8 @@ export class CustomerService {
         errorMessage: string;
 		url = "http://localhost:8080/custManagement/allCustomers";
 		headers: Headers;
-    	options: RequestOptions;
+		options: RequestOptions;
+		
 	    constructor(private http:Http) {}
 		
 		getAllCustomers(): Promise<any> {
@@ -30,14 +32,22 @@ export class CustomerService {
 	
 		private handleError(error: any): Promise<any> {
 			console.error('An error occurred', error);
+			this.errorMessage = error;
 			return Promise.reject(error.message || error);
 		}
 
 		create(customer: Customer): Promise<Customer> {
+			const headers = new Headers();
+  			headers.append('Content-Type', 'application/json');
+  			let options = new RequestOptions({ headers: headers })
 			return this.http
-			  .post("http://localhost:8080/custManagement/createCustomer", JSON.stringify(customer), {headers: this.headers})
+			  .post("http://localhost:8080/custManagement/createCustomer", JSON.stringify(customer), options)
 			  .toPromise()
 			  .then(res => res.json() as Customer)
 			  .catch(this.handleError);
+		  }
+
+		  getErrorMessage(): String{
+			  return this.errorMessage;
 		  }
 }

@@ -1,3 +1,4 @@
+import { Connection } from "./connection";
 
 export class Customer{
     customerId: number;
@@ -6,5 +7,6 @@ export class Customer{
     userName: string;
     mobileNo: number;
     emailId: string;
+    connection: Connection[];
     constructor(){}
 }

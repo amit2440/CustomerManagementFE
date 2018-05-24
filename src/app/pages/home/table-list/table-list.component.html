@@ -1,6 +1,6 @@
 <div class="main-content">
     <div class="container-fluid">
-        <div class="row">
+        <!--div class="row"-->
             <div class="col-md-12">
                 <!-- <div class="card">
                     <div class="card-header" data-background-color="red">
@@ -60,38 +60,61 @@
                     </div>
                 </div> -->
                 <div class="row">
-                    <div class="col-md-12">
-                     <form class="navbar-form navbar-left" role="search">
+                    <!-- <div class="col-md-12"> -->
+                        <form class="navbar-form navbar-left" role="search" (ngSubmit)="search()">
+                            <div class="col-md-3">
+                            <div class="form-group form-black is-empty">
+                                    <input type="text" class="form-control" placeholder="Name"  [(ngModel)] ="searchCustomer.firstName"  name="firstName">
+                                    <span class="material-input"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-1" >OR</div>
+                            
+                        <div class="col-md-3">
                         <div class="form-group form-black is-empty">
-                            <input type="text" class="form-control" placeholder="Name">
-                            <span class="material-input"></span>
-                        </div>
-                        <div class="form-group form-black is-empty">
-                             <input type="text" class="form-control" placeholder="Username">
+                             <input type="text" class="form-control" placeholder="Email Id" [(ngModel)] ="searchCustomer.emailId"  name="emailId">
                              <span class="material-input"></span>
                         </div>    
+                        </div>
+                        <div class="col-md-1">OR</div>
+                        <div class="col-md-3">
                         <div class="form-group form-black is-empty">
-                                <input type="number" class="form-control" placeholder="Mobile Number">
+                                <input type="number" class="form-control" placeholder="Mobile Number" [(ngModel)] ="searchCustomer.mobileNo"  name="mobileNo">
                                 <span class="material-input"></span>
                         </div>
+                        </div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-1">
                         <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                            <i class="material-icons">search</i><div class="ripple-container"></div>
+                            <i class="material-icons" >search</i><div class="ripple-container"></div>
                         </button>
+                        </div>
                         </form>
-                    </div>
+                    <!-- </div> -->
                 </div>
                 <div class="row">
                             <div class="col-md-2">
                                 <div class="form-group form-black is-empty">                                  
-                                    <select name="Connection Name" class="form-control">
-                                            <option value="volvo">Volvo XC90</option>
-                                            <option value="saab">Saab 95</option>
-                                            <option value="mercedes">Mercedes SLK</option>
-                                            <option value="audi">Audi TT</option>
-                                    </select>
+                                    
+                                    <select name="Customer Name" class="form-control" placeholder="Select Customer" [(ngModel)]="selectedCustomer.id" (change)="onCustSelect()" >
+                                            <option *ngFor="let cust of currentSearchedCustomer" value= {{cust.id}}>
+                                              {{cust.firstName+' '+cust.mobileNo}}
+                                            </option>
+                                          </select>
                                     <span class="material-input"></span>
                                 </div>
                             </div>
+                            <div class="col-md-2">
+                                    <div class="form-group form-black is-empty">                                  
+                                        
+                                        <select name="Connection Name" class="form-control" placeholder="Select Connection">
+                                                <option *ngFor="let conn of selectedCustomer" value= {{conn.id}}>
+                                                  {{conn.connectionName}}
+                                                </option>
+                                              </select>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
                 </div>
                 <div class="row">
                         <div class="col-md-1">
@@ -263,6 +286,6 @@
                     </div>
                 </div>
             </div> -->
-        </div>
+        <!-- </div> -->
     </div>
 </div>

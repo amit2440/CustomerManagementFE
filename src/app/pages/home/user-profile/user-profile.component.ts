@@ -11,7 +11,8 @@ import { CustomerService } from '../../../services/customer.service';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-
+  errorMessage: string;
+  response: any;
   constructor(private custService: CustomerService,private connectionService: ConnectionService) { }
 
   ngOnInit() {
@@ -19,7 +20,9 @@ export class UserProfileComponent implements OnInit {
 
   customer = new Customer();
   onSubmit(): void {
-  this.custService.create(this.customer);
+  this.response = this.custService.create(this.customer);
+  this.errorMessage = this.custService.errorMessage;
+  this.errorMessage = JSON.parse(this.errorMessage).message;
 }
    
 }

@@ -8,7 +8,7 @@
                     <p class="category">Complete the profile</p>
                 </div>
                 <div class="card-content">
-                    <form (ngSubmit)="onSubmit()">
+                    <form (ngSubmit)="onSubmit()" >
                         <div class="row">
                                 <div class="col-md-4">
                                         <div class="form-group form-black label-floating is-empty">
@@ -46,6 +46,10 @@
                                             </div>
                                         </div>
                             
+                        </div>
+
+                        <div class="row">
+                            {{responseMsg}}
                         </div>
 
                         <!--div class="row">
@@ -90,7 +94,7 @@
                             </div>
                         </div> -->
 
-                        <button type="submit" class="btn btn-danger pull-right"> Add Profile</button>
+                        <button type="submit" class="btn btn-danger pull-right" > Add Profile</button>
                         <div class="clearfix"></div>
                     </form>
                 </div>

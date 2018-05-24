@@ -10,7 +10,7 @@ declare var $:any;
 })
 export class SidebarComponent implements OnInit {
   menuItems: any[];
-  myDataset: [100, 200, 300, 400, 500];
+  
   constructor() { }
 
   ngOnInit() {
