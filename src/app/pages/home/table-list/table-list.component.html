@@ -96,8 +96,8 @@
                             <div class="col-md-2">
                                 <div class="form-group form-black is-empty">                                  
                                     
-                                    <select name="Customer Name" class="form-control" placeholder="Select Customer" [(ngModel)]="selectedCustomer.id" (change)="onCustSelect()" >
-                                            <option *ngFor="let cust of currentSearchedCustomer" value= {{cust.id}}>
+                                    <select name="Customer Name" class="form-control" placeholder="Select Customer" [(ngModel)]="selectedCustomer.customerId" (change)="onCustSelect()" >
+                                            <option *ngFor="let cust of currentSearchedCustomer" value= {{cust.customerId}}>
                                               {{cust.firstName+' '+cust.mobileNo}}
                                             </option>
                                           </select>
@@ -108,7 +108,7 @@
                                     <div class="form-group form-black is-empty">                                  
                                         
                                         <select name="Connection Name" class="form-control" placeholder="Select Connection">
-                                                <option *ngFor="let conn of selectedCustomer" value= {{conn.id}}>
+                                                <option *ngFor="let conn of connectionForSelectedCust" value= {{conn.connectionId}}>
                                                   {{conn.connectionName}}
                                                 </option>
                                               </select>

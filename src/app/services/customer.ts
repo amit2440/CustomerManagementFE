@@ -7,6 +7,6 @@ export class Customer{
     userName: string;
     mobileNo: number;
     emailId: string;
-    connection: Connection[];
+    connections: Connection[];
     constructor(){}
 }

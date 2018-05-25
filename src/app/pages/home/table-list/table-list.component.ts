@@ -59,12 +59,141 @@ export class TableListComponent implements OnInit {
     this.currentSearchedCustomer = new Array();
     if(this.allCustomers!=undefined && this.allCustomers.length>0){
        this.allCustomers.forEach(customer =>{
-         if(customer.firstName == this.searchCustomer.firstName){
+         if(this.searchCustomer.firstName!=undefined && this.searchCustomer.firstName!=''){
+          if(customer.firstName == this.searchCustomer.firstName){
+            if(this.searchCustomer.emailId!=undefined && this.searchCustomer.emailId!=''){
+              if(customer.emailId == this.searchCustomer.emailId){
+              if(this.searchCustomer.mobileNo!=undefined && this.searchCustomer.mobileNo!=null){
+                if(customer.mobileNo == this.searchCustomer.mobileNo){
+                  this.currentSearchedCustomer.push(customer)
+                  return;
+                }
+              }
+              else{
+                if(this.searchCustomer.mobileNo==undefined || this.searchCustomer.mobileNo==null){
+                this.currentSearchedCustomer.push(customer)
+                return;
+                }
+              }
+            }
+              
+            }
+          //   else{
+         //      this.currentSearchedCustomer.push(customer)
+         //     return;
+         //   }
+             if(this.searchCustomer.mobileNo!=undefined && this.searchCustomer.mobileNo!=null){
+              if(customer.mobileNo == this.searchCustomer.mobileNo){
+                if(this.searchCustomer.emailId!=undefined && this.searchCustomer.emailId!=''){
+                  if(customer.emailId == this.searchCustomer.emailId){
+                //  if(this.searchCustomer.mobileNo!=undefined && this.searchCustomer.mobileNo!=null){
+                  //  if(customer.mobileNo == this.searchCustomer.mobileNo){
+                      this.currentSearchedCustomer.push(customer)
+                      return;
+                  //   }
+                  // }
+                  // else{
+                   // this.currentSearchedCustomer.push(customer)
+                 //   return;
+                //  }
+                }
+                  
+                }
+                else{
+                this.currentSearchedCustomer.push(customer)
+                return;
+                }
+              }
+            }
+            else{
+              if(this.searchCustomer.emailId==undefined || this.searchCustomer.emailId==''){
               this.currentSearchedCustomer.push(customer)
-         }
-         if(customer.lastName == this.searchCustomer.firstName){
-          this.currentSearchedCustomer.push(customer)
+              return;
+              }
+            }
           }
+          if(customer.lastName == this.searchCustomer.firstName){
+            if(this.searchCustomer.emailId!=undefined && this.searchCustomer.emailId!=''){
+              if(customer.emailId == this.searchCustomer.emailId){
+              if(this.searchCustomer.mobileNo!=undefined && this.searchCustomer.mobileNo!=null){
+                if(customer.mobileNo == this.searchCustomer.mobileNo){
+                  this.currentSearchedCustomer.push(customer)
+                  return;
+                }
+              }
+              else{
+                if(this.searchCustomer.mobileNo==undefined || this.searchCustomer.mobileNo==null){
+                this.currentSearchedCustomer.push(customer)
+                return;
+                }
+              }
+            }
+              
+            }
+          //   else{
+         //      this.currentSearchedCustomer.push(customer)
+         //     return;
+         //   }
+             if(this.searchCustomer.mobileNo!=undefined && this.searchCustomer.mobileNo!=null){
+              if(customer.mobileNo == this.searchCustomer.mobileNo){
+                if(this.searchCustomer.emailId!=undefined && this.searchCustomer.emailId!=''){
+                  if(customer.emailId == this.searchCustomer.emailId){
+                //  if(this.searchCustomer.mobileNo!=undefined && this.searchCustomer.mobileNo!=null){
+                  //  if(customer.mobileNo == this.searchCustomer.mobileNo){
+                      this.currentSearchedCustomer.push(customer)
+                      return;
+                  //   }
+                  // }
+                  // else{
+                   // this.currentSearchedCustomer.push(customer)
+                 //   return;
+                //  }
+                }
+                  
+                }
+                else{
+                this.currentSearchedCustomer.push(customer)
+                return;
+                }
+              }
+            }
+            else{
+              if(this.searchCustomer.emailId==undefined || this.searchCustomer.emailId==''){
+              this.currentSearchedCustomer.push(customer)
+              return;
+              }
+            }
+          }
+        }
+        if(this.searchCustomer.emailId!=undefined && this.searchCustomer.emailId!=''){
+          if(customer.emailId == this.searchCustomer.emailId){
+            if(this.searchCustomer.mobileNo!=undefined && this.searchCustomer.mobileNo!=null){
+              if(this.searchCustomer.firstName==undefined || this.searchCustomer.firstName=='')
+              if(customer.mobileNo == this.searchCustomer.mobileNo){
+                this.currentSearchedCustomer.push(customer)
+                return;
+              }
+            }
+             else{
+              if(this.searchCustomer.firstName==undefined || this.searchCustomer.firstName==''){
+                if(this.searchCustomer.mobileNo==undefined || this.searchCustomer.mobileNo==null){
+               this.currentSearchedCustomer.push(customer)
+               return;
+                }
+              }
+             }
+          }
+            
+         }
+        
+        if(this.searchCustomer.mobileNo!=undefined && this.searchCustomer.mobileNo!=null){
+          if(customer.mobileNo == this.searchCustomer.mobileNo){
+            if(this.searchCustomer.firstName==undefined || this.searchCustomer.firstName=='')
+            if(this.searchCustomer.emailId==undefined || this.searchCustomer.emailId=='')
+            this.currentSearchedCustomer.push(customer)
+            return;
+          }
+        }
        });
       //  if(this.currentSearchedCustomer!=undefined){
       //     this.connectionsForUser = new Map();
@@ -78,9 +207,11 @@ export class TableListComponent implements OnInit {
   }
 
   onCustSelect():void{
-    this.allCustomers.forEach(cust => {
-      if(cust.customerId == this.selectedCustomer.customerId)
-      return cust;
+     this.allCustomers.forEach(cust => {
+      if(cust.customerId == this.selectedCustomer.customerId){
+        this.connectionForSelectedCust = cust.connections;
+        return;
+      }
     })
   }
 
