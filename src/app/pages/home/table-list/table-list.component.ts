@@ -22,6 +22,8 @@ export class TableListComponent implements OnInit {
   searchCustomer = new Customer();
   selectedCustomer = new Customer();
   connectionForSelectedCust: Connection[];
+  custDetailsHeaders: String[] = ["ConnectionID","CustomerName","Mobile","Email"
+  ,"ConnectionName","ConnectionDate","ConnectionStatus","ConnectionAddress","PaymentStatus"];
 
   constructor(private custService: CustomerService,private connectionService: ConnectionService) { }
 
@@ -57,6 +59,7 @@ export class TableListComponent implements OnInit {
 
   search() : void {
     this.currentSearchedCustomer = new Array();
+    this.connectionForSelectedCust = new Array();
     if(this.allCustomers!=undefined && this.allCustomers.length>0){
        this.allCustomers.forEach(customer =>{
          if(this.searchCustomer.firstName!=undefined && this.searchCustomer.firstName!=''){
