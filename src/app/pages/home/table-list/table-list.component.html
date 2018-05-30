@@ -59,9 +59,15 @@
 
                     </div>
                 </div> -->
-                <div class="row">
+                <div class="card">
+                        <div class="card-header" data-background-color="red">
+                            <h4 class="title">Search Customer</h4>
+                            <!-- <p class="category">Complete the profile</p> -->
+                        </div>
+                        <div class="card-content">
+                <!-- <div class="row"> -->
                     <!-- <div class="col-md-12"> -->
-                        <form class="navbar-form navbar-left" role="search" (ngSubmit)="search()">
+                        <!-- <form class="navbar-form navbar-left" role="search" (ngSubmit)="search()">
                             <div class="col-md-3">
                             <div class="form-group form-black is-empty">
                                     <input type="text" class="form-control" placeholder="Name"  [(ngModel)] ="searchCustomer.firstName"  name="firstName">
@@ -89,12 +95,44 @@
                             <i class="material-icons" >search</i><div class="ripple-container"></div>
                         </button>
                         </div>
-                        </form>
+                        </form> -->
                     <!-- </div> -->
-                </div>
+                    <form  role="search" (ngSubmit)="search()">
+                    <div class="row">
+                            <div class="col-md-3">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Name</label>
+                                        <input type="text" class="form-control" placeholder="Name"  [(ngModel)] ="searchCustomer.firstName"  name="firstName">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Email Id</label>
+                                        <input type="text" class="form-control" placeholder="Email Id" [(ngModel)] ="searchCustomer.emailId"  name="emailId">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                        <div class="form-group form-black label-floating is-empty">
+                                            <label class="control-label">Mobile Number</label>
+                                            <input type="number" class="form-control" placeholder="Mobile Number" [(ngModel)] ="searchCustomer.mobileNo"  name="mobileNo">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                            <div class="form-group form-black label-floating is-empty">
+                                                    <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                                                            <i class="material-icons" >search</i><div class="ripple-container"></div>
+                                                        </button>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    <!-- </form> -->
+                        
+                    <!-- </div> -->
+                    <!-- </div> -->
+                   
                 <div class="row">
                             <div class="col-md-2">
-                                <div class="form-group form-black is-empty">                                  
+                                <div class="form-group form-black label-floating is-empty">
                                     
                                     <select name="Customer Name" class="form-control" placeholder="Select Customer" [(ngModel)]="selectedCustomer.customerId" (change)="onCustSelect()" >
                                             <option *ngFor="let cust of currentSearchedCustomer" value= {{cust.customerId}}>
@@ -105,9 +143,9 @@
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                    <div class="form-group form-black is-empty">                                  
+                                    <div class="form-group form-black label-floating is-empty">
                                         
-                                        <select name="Connection Name" class="form-control" placeholder="Select Connection">
+                                        <select name="Connection Name" class="form-control" placeholder="Select Connection" (change)="onConnectionSelect()">
                                                 <option *ngFor="let conn of connectionForSelectedCust" value= {{conn.connectionId}}>
                                                   {{conn.connectionName}}
                                                 </option>
@@ -115,6 +153,38 @@
                                         <span class="material-input"></span>
                                     </div>
                                 </div>
+                </div>
+            </form>
+            </div>
+        </div>
+                <div class="row">
+                <br><br/>
+                <div class="col-lg-12 col-md-12" id="custDetailsTable">
+                    <div class="card">
+                    <div class="card-header" data-background-color="orange">
+                        <h4 class="title">Customer Details</h4>
+                        <p class="category">Details of Customer</p>
+                    </div>
+                        <div class="card-content table-responsive">
+                            <table class="table table-hover">
+                            <thead class="text-warning">
+                                <tr>
+                                    <th *ngFor="let col of custDetailsHeaders">
+                                        {{col}}
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of custDetailsContent">
+                                    <td *ngFor="let col of custDetailsHeaders">
+                                        {{data[col]}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                            </table>
+                        </div>
+                    </div>
+                 </div>
                 </div>
                 <div class="row">
                         <div class="col-md-1">
