@@ -5,6 +5,8 @@ import { ConnectionService } from '../../../services/connection.service';
 import { CustomerService } from '../../../services/customer.service';
 import { ConnectionPipe } from '../../../pipes/connection.pipe';
 import { Customer } from '../../../services/customer';
+import { PaymentDetails } from '../../../services/paymentDetails';
+import { Address } from '../../../services/address';
 
 
 @Component({
@@ -21,9 +23,11 @@ export class TableListComponent implements OnInit {
   currentSearchedCustomer: any;
   searchCustomer = new Customer();
   selectedCustomer = new Customer();
+  selectedConnection = new Connection();
   connectionForSelectedCust: Connection[];
-  custDetailsHeaders: String[] = ["ConnectionID","CustomerName","Mobile","Email"
-  ,"ConnectionName","ConnectionDate","ConnectionStatus","ConnectionAddress","PaymentStatus"];
+  paymentDetailsHeaders: String[] = ["ConnectionID","PaymentID","From","To","InternetPlan","InvoiceNo","Amount","Date","By", "Status"];
+  paymentDetailsContent: PaymentDetails[] = [];
+  showHide: false;
 
   constructor(private custService: CustomerService,private connectionService: ConnectionService) { }
 
@@ -33,8 +37,65 @@ export class TableListComponent implements OnInit {
   }
 
   showHistory(){
-    console.log("Hello");
+    this.paymentDetailsContent = this.getHistoryForConn();
     this.isHistory = true;
+  }
+
+  getHistoryForConn(): PaymentDetails[]{
+  
+    let paymentTable = new Array();
+    let selectedConn = this.allConnections.filter( conn => conn.connectionId == this.selectedConnection.connectionId);
+    if(selectedConn.length>0)
+    selectedConn[0].payments.forEach(payment =>{
+      let connDetailsContent = new PaymentDetails();
+      connDetailsContent.ConnectionID = selectedConn[0].connectionId;
+      connDetailsContent.Amount = payment.paymentAmount;
+      connDetailsContent.By = payment.paymentMethod;
+      connDetailsContent.Date = payment.date;
+      connDetailsContent.From = payment.paymentFrom;
+      connDetailsContent.To =payment.paymentTo;
+      connDetailsContent.InternetPlan = payment.internetPlan;
+      connDetailsContent.PaymentID = payment.paymentId;
+      connDetailsContent.Status = payment.paymentStatus;
+      connDetailsContent.InvoiceNo = payment.invoiceNo;
+      // if(conn.customer != undefined && conn.customer instanceof Object){
+      // //  let a = activeConn.customer;
+      //  // this.allCustomers.forEach(element => {
+      //     connDetailsContent.CustomerName = conn.customer.firstName.concat(" ").concat(conn.customer.lastName);
+      //     connDetailsContent.Mobile = conn.customer.mobileNo;
+      //   connDetailsContent.Email = conn.customer.emailId;
+      // //  });
+      // }
+      // else{
+      //   let temp = new Connection;
+      //   temp.customer = conn.customer;
+      //   let cust  = this.allCustomers.filter(cust => {
+      //     return cust.customerId == temp.customer;
+      //   });
+      //   if(cust.length>0){
+      //     connDetailsContent.CustomerName = cust[0].firstName.concat(" ").concat(cust[0].lastName);
+      //     connDetailsContent.Mobile = cust[0].mobileNo;
+      //    connDetailsContent.Email = cust[0].emailId;
+      //   }
+      // }
+      
+      //connDetailsContent.ConnectionName = conn.connectionName;
+      //connDetailsContent.ConnectionDate = conn.connectionDate;
+     // connDetailsContent.ConnectionStatus = conn.connectionStatus;
+     // connDetailsContent.ConnectionAddress = conn.addresses == null ? null: conn.addresses.address;
+      //connDetailsContent.PaymentStatus = "Unknown";
+      // this.unpaidConnections.forEach(element => {
+      //   if(element.connectionId == conn.connectionId)
+      //     connDetailsContent.PaymentStatus = "Not Paid";
+      // });
+      // this.paidConnections.forEach(element => {
+      //   if(element.connectionId == conn.connectionId)
+      //     connDetailsContent.PaymentStatus = "Paid";
+      // });
+      paymentTable.push(connDetailsContent);
+  
+    })
+    return paymentTable;
   }
 
   getAllCustomers(): void {
@@ -213,9 +274,12 @@ export class TableListComponent implements OnInit {
      this.allCustomers.forEach(cust => {
       if(cust.customerId == this.selectedCustomer.customerId){
         this.connectionForSelectedCust = cust.connections;
+        this.selectedCustomer.firstName = cust.firstName;
+        this.selectedCustomer.lastName = cust.lastName;
         return;
       }
     })
+
   }
 
 
@@ -226,6 +290,19 @@ export class TableListComponent implements OnInit {
        return;
      }
    })
+ }
+
+ newConnection = new Connection();
+ newAddress = new Address();
+ errorMessage: string;
+  response: any;
+
+ onConnectionAdd(): void{
+   this.newConnection.customer = this.selectedCustomer;
+   this.newConnection.addresses = this.newAddress;
+  this.response = this.connectionService.create(this.newConnection);
+  this.errorMessage = this.connectionService.errorMessage;
+  this.errorMessage = JSON.parse(this.errorMessage).message;
  }
 
 }

@@ -145,7 +145,7 @@
                             <div class="col-md-2">
                                     <div class="form-group form-black label-floating is-empty">
                                         
-                                        <select name="Connection Name" class="form-control" placeholder="Select Connection" (change)="onConnectionSelect()">
+                                        <select name="Connection Name" class="form-control" placeholder="Select Connection" (change)="onConnectionSelect()" [(ngModel)]="selectedConnection.connectionId">
                                                 <option *ngFor="let conn of connectionForSelectedCust" value= {{conn.connectionId}}>
                                                   {{conn.connectionName}}
                                                 </option>
@@ -157,26 +157,37 @@
             </form>
             </div>
         </div>
+            <div class="row">
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-danger pull-left" (click)="showHistory()">History</button>
+                </div>
+                <div class="col-md-1">
+                    <button type="submit" class="btn btn-danger pull-left" ng-click="isHistory=false">Add Conn</button>
+                </div>
+                <div class="col-md-1">
+                    <button type="submit" class="btn btn-danger pull-left">Recharge</button>
+                </div>
+            </div>
                 <div class="row">
                 <br><br/>
-                <div class="col-lg-12 col-md-12" id="custDetailsTable">
-                    <div class="card">
+                <div class="col-lg-12 col-md-12" id="detailsArea" >
+                    <div class="card" ng-show="showHist">
                     <div class="card-header" data-background-color="orange">
-                        <h4 class="title">Customer Details</h4>
-                        <p class="category">Details of Customer</p>
+                        <h4 class="title">Connection Details</h4>
+                        <p class="category">Details of Connection</p>
                     </div>
                         <div class="card-content table-responsive">
                             <table class="table table-hover">
                             <thead class="text-warning">
                                 <tr>
-                                    <th *ngFor="let col of custDetailsHeaders">
+                                    <th *ngFor="let col of paymentDetailsHeaders">
                                         {{col}}
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let data of custDetailsContent">
-                                    <td *ngFor="let col of custDetailsHeaders">
+                                <tr *ngFor="let data of paymentDetailsContent">
+                                    <td *ngFor="let col of paymentDetailsHeaders">
                                         {{data[col]}}
                                     </td>
                                 </tr>
@@ -186,17 +197,96 @@
                     </div>
                  </div>
                 </div>
-                <div class="row">
-                        <div class="col-md-1">
-                            <button type="button" class="btn btn-danger pull-left" ng-click="isHistory=true">History</button>
-                        </div>
-                        <div class="col-md-1">
-                                <button type="submit" class="btn btn-danger pull-left" ng-click="isHistory=false">Payment</button>
-                        </div>
-                        <div class="col-md-1">
-                            <button type="submit" class="btn btn-danger pull-left">Recharge</button>
-                        </div>
+                
+                <div class="card" ng-hide="isHistory" >
+                      
+                    <div class="card-header" data-background-color="red">
+                        <h4 class="title">Add Connection</h4>
+                        <p class="category">New Connection Details</p>
+                    </div>
+                    <div class="card-content">
+                        <form (ngSubmit)="onConnectionAdd()">
+                            <div class="row">
+                                    <div class="col-md-3">
+                                            <div class="form-group form-black label-floating is-empty">
+                                                <!-- <label class="control-label">Customer Name</label> -->
+                                                <input type="text" class="form-control" value="{{selectedCustomer.firstName +' '+selectedCustomer.lastName}}" name ="custName">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group form-black label-floating is-empty">
+                                                <label class="control-label">Connection Name</label>
+                                                <input type="text" class="form-control" name = "connectionName"  [(ngModel)] ="newConnection.connectionName">
+                                            </div>
+                                        </div>
+                                
+                            </div>
+    
+                            <div class="row">
+                                    <div class="col-md-3">
+                                            <div class="form-group form-black label-floating is-empty">
+                                                <label class="control-label">Connection Status</label>
+                                                <input type="text" class="form-control" name ="connectionStatus" [(ngModel)] ="newConnection.connectionStatus">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group form-black label-floating is-empty">
+                                                <label class="control-label">Connection Date</label>
+                                                <input type="date" class="form-control" name = "connectionDate" [(ngModel)] ="newConnection.connectionDate">
+                                            </div>
+                                        </div>
+                                        
+                                
+                            </div>
+    
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Address</label>
+                                        <input type="text" class="form-control" name ="addresses.address" [(ngModel)] ="newAddress.address">
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">City</label>
+                                        <input type="text" class="form-control" name = "addresses.city" [(ngModel)] ="newAddress.city">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Country</label>
+                                        <input type="text" class="form-control" name = "addresses.country" [(ngModel)] ="newAddress.country" >
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Postal Code</label>
+                                        <input type="text" class="form-control" name = "addresses.pinCode" [(ngModel)] ="newAddress.pinCode" >
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <!-- <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>About Me</label>
+                                        <div class="form-group form-black label-floating is-empty">
+                                            <label class="control-label"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>
+                                            <textarea class="form-control" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+    
+                            <button type="submit" class="btn btn-danger pull-right">Add Connection</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
                 </div>
+
                 <div class="card" ng-hide="isHistory">
                         <div class="card-header" data-background-color="red">
                             <h4 class="title">Update Details</h4>

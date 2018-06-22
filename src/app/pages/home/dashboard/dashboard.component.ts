@@ -6,7 +6,7 @@ import { Connection } from '../../../services/connection';
 import { Address } from '../../../services/address';
 import { ConnectionService } from '../../../services/connection.service';
 import { ConnectionPipe } from '../../../pipes/connection.pipe';
-import { DashBoardTable } from '../../../services/dashBoardTable'
+import { DashBoardTable } from '../../../services/dashBoardTable';
 import { pipe } from 'rxjs';
 
 declare function require(path: string): any;
