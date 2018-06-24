@@ -11,8 +11,13 @@ import { AppComponent } from './app.component';
 import { ChartsModule } from 'ng2-charts';
 import { CustomerService } from './services/customer.service'
 import { ConnectionService } from './services/connection.service'
+import { PaymentService } from './services/payment.service'
+import { UploadFileService } from './services/fileUpload.service'
 import { ConnectionPipe } from './pipes/connection.pipe';
 import {NgxPaginationModule} from 'ngx-pagination'; 
+import {HttpClient, HttpRequest, HttpEvent} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { jspdf } from 'jspdf';
 
 
 @NgModule({
@@ -27,9 +32,10 @@ import {NgxPaginationModule} from 'ngx-pagination';
     RouterModule,
     ChartsModule,
     AppRoutingModule,
-    PagesModule
+    PagesModule,
+    HttpClientModule
   ],
-  providers: [CustomerService,ConnectionService],
+  providers: [CustomerService,ConnectionService, PaymentService,UploadFileService, HttpClient],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+  import { Component, OnInit } from '@angular/core';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-root',
@@ -16,5 +17,7 @@ export class AppComponent implements OnInit {
       this.router.navigate(['/home/dashboard']);
     }
   }
+
+
 
 }

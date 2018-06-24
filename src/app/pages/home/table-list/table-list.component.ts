@@ -7,6 +7,12 @@ import { ConnectionPipe } from '../../../pipes/connection.pipe';
 import { Customer } from '../../../services/customer';
 import { PaymentDetails } from '../../../services/paymentDetails';
 import { Address } from '../../../services/address';
+import { Payment } from '../../../services/payment';
+import { PaymentService } from '../../../services/payment.service';
+import  jspdf  from 'jspdf';
+import { UploadFileService } from '../../../services/fileUpload.service';
+import { HttpClient, HttpResponse, HttpEventType } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @Component({
@@ -29,7 +35,8 @@ export class TableListComponent implements OnInit {
   paymentDetailsContent: PaymentDetails[] = [];
   showHide: false;
 
-  constructor(private custService: CustomerService,private connectionService: ConnectionService) { }
+  constructor(private uploadService: UploadFileService,private custService: CustomerService,private connectionService: ConnectionService,
+  private paymentService: PaymentService) { }
 
   ngOnInit() {
     this.getAllCustomers();
@@ -296,6 +303,7 @@ export class TableListComponent implements OnInit {
  newAddress = new Address();
  errorMessage: string;
   response: any;
+  newPayment = new Payment();
 
  onConnectionAdd(): void{
    this.newConnection.customer = this.selectedCustomer;
@@ -304,5 +312,41 @@ export class TableListComponent implements OnInit {
   this.errorMessage = this.connectionService.errorMessage;
   this.errorMessage = JSON.parse(this.errorMessage).message;
  }
+
+  doc = new jspdf();
+
+generateInvoice():void{
+  let date = new Date();
+  this.doc.setFontSize(40);
+this.doc.text('Infinity Network',45, 25)
+this.doc.save(date.getMonth()+'-'+date.getFullYear()+'-'+this.selectedCustomer.firstName+'.pdf')
+
+}
+
+onRecharge():void {
+  this.newPayment.connectionId = this.selectedConnection.connectionId;
+  console.log(this.doc);
+   this.response = this.paymentService.create(this.newPayment);
+  this.errorMessage = this.connectionService.errorMessage;
+  this.errorMessage = JSON.parse(this.errorMessage).message;
+}
+
+selectedFiles: FileList;
+   currentFileUpload: File;
+  
+  selectFile(event) {
+    console.log("in selected files");
+    this.selectedFiles = event.target.files;
+  }
+  upload() {
+    this.currentFileUpload = this.selectedFiles.item(0);
+    this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(event => {
+     if (event instanceof HttpResponse) {
+        console.log('File is completely uploaded!');
+      }
+    });
+    this.selectedFiles = undefined;
+  }
+
 
 }

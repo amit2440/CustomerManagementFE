@@ -9,4 +9,6 @@ export class Payment{
     paymentTo: Date;
     internetPlan: String;
    invoiceNo: String;
+   connectionId: number;
+   constructor(){}
 }
