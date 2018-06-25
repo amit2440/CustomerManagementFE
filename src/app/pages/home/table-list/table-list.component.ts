@@ -22,7 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
 })
 export class TableListComponent implements OnInit {
 
-  isHistory:boolean;
+  isHistory:boolean = false;
   connectionsForUser: any;
   allCustomers: Customer[];
   allConnections: Connection[];
@@ -34,6 +34,8 @@ export class TableListComponent implements OnInit {
   paymentDetailsHeaders: String[] = ["ConnectionID","PaymentID","From","To","InternetPlan","InvoiceNo","Amount","Date","By", "Status"];
   paymentDetailsContent: PaymentDetails[] = [];
   showHide: false;
+  isAddConnection:boolean= false;
+  isRecharge:boolean = false;
 
   constructor(private uploadService: UploadFileService,private custService: CustomerService,private connectionService: ConnectionService,
   private paymentService: PaymentService) { }
@@ -44,8 +46,22 @@ export class TableListComponent implements OnInit {
   }
 
   showHistory(){
-    this.paymentDetailsContent = this.getHistoryForConn();
     this.isHistory = true;
+    this.isAddConnection = false;
+    this.isRecharge = false;
+    this.paymentDetailsContent = this.getHistoryForConn();
+  }
+
+  addConnection(){
+    this.isAddConnection = true;
+    this.isHistory = false;
+    this.isRecharge = false;
+  }
+
+  recharge(){
+    this.isAddConnection = false;
+    this.isHistory = false;
+    this.isRecharge = true;
   }
 
   getHistoryForConn(): PaymentDetails[]{
@@ -347,6 +363,7 @@ selectedFiles: FileList;
     });
     this.selectedFiles = undefined;
   }
+ 
 
 
 }
