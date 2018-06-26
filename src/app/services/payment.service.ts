@@ -36,12 +36,12 @@ export class PaymentService {
 			return Promise.reject(error.message || error);
 		}
 
-		create(customer: Payment): Promise<Payment> {
+		create(payment: Payment): Promise<Payment> {
 			const headers = new Headers();
   			headers.append('Content-Type', 'application/json');
   			let options = new RequestOptions({ headers: headers })
 			return this.http
-			  .post("http://localhost:8080/custManagement/addPayment", JSON.stringify(customer), options)
+			  .post("http://localhost:8080/custManagement/addPayment", JSON.stringify(payment), options)
 			  .toPromise()
 			  .then(res => res.json() as Payment)
 			  .catch(this.handleError);
@@ -49,5 +49,18 @@ export class PaymentService {
 
 		  getErrorMessage(): String{
 			  return this.errorMessage;
+		  }
+
+		  
+
+		  getMaxInvoiceNo(): Promise<Payment> {
+			const headers = new Headers();
+  			headers.append('Content-Type', 'application/json');
+  			let options = new RequestOptions({ headers: headers })
+			return this.http
+			  .get("http://localhost:8080/custManagement/getMaxInvoiceNo")
+			  .toPromise()
+			  .then(res => res.json() as Payment)
+			  .catch(this.handleError);
 		  }
 }

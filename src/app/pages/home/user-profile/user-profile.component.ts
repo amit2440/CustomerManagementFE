@@ -13,6 +13,7 @@ import { CustomerService } from '../../../services/customer.service';
 export class UserProfileComponent implements OnInit {
   errorMessage: string;
   response: any;
+  addBtn:boolean= false;
   constructor(private custService: CustomerService,private connectionService: ConnectionService) { }
 
   ngOnInit() {
@@ -20,6 +21,10 @@ export class UserProfileComponent implements OnInit {
 
   customer = new Customer();
   onSubmit(): void {
+  if((this.customer.firstName)==undefined || this.customer.lastName == undefined || this.customer.emailId == undefined || this.customer.mobileNo ==undefined){
+    this.errorMessage = "Profile is not complete";
+    return;
+  }
   this.response = this.custService.create(this.customer);
   this.errorMessage = this.custService.errorMessage;
   this.errorMessage = JSON.parse(this.errorMessage).message;

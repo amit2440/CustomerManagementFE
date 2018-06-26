@@ -160,9 +160,9 @@
 
             <div class="col-md-12">
                 <div class="row">
-                    <button type="button" class="btn btn-danger pull-left" (click)="showHistory()">History</button>
-                    <button type="submit" class="btn btn-danger pull-left" (click)="addConnection()">Add Connection</button>
-                    <button type="submit" class="btn btn-danger pull-left" (click)="recharge()">Recharge</button>
+                    <button type="button"  [disabled]="!historyBtn"  class="btn btn-danger pull-left" (click)="showHistory()">History</button>
+                    <button type="submit" [disabled]="!addConnBtn"  class="btn btn-danger pull-left" (click)="addConnection()">Add Connection</button>
+                    <button type="submit"  [disabled]="!rechargeHomeBtn" class="btn btn-danger pull-left" (click)="recharge()">Recharge</button>
                 </div>
             </div>
             <div class="row">
@@ -294,12 +294,12 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group form-black label-floating is-empty">
-                                    <input type="text" class="form-control" value="{{selectedCustomer.firstName +' '+selectedCustomer.lastName}}" name="custName">
+                                    <input type="text" class="form-control" [disabled]=true value="{{selectedCustomer.firstName +' '+selectedCustomer.lastName}}" name="custName">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group form-black label-floating is-empty">
-                                    <input type="text" class="form-control" value="{{selectedConnection.connectionName}}" ng-change="false">
+                                    <input type="text" class="form-control" [disabled]=true value="{{selectedConnection.connectionName}}" ng-change="false">
                                 </div>
                             </div>
 
@@ -313,20 +313,20 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group form-black label-floating is-empty">
-                                    <label class="control-label">From</label>
+                                    <!-- <label class="control-label">From</label> -->
                                     <input type="date" class="form-control" name="paymentFrom" [(ngModel)]="newPayment.paymentFrom">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group form-black label-floating is-empty">
-                                    <label class="control-label">To</label>
+                                    <!-- <label class="control-label">To</label> -->
                                     <input type="date" class="form-control" name="paymentTo" [(ngModel)]="newPayment.paymentTo">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group form-black label-floating is-empty">
                                     <label class="control-label">Payment Status</label>
-                                    <select name="paymentStatus" class="form-control" placeholder="Payment Status" (change)="onConnectionSelect()" [(ngModel)]="newPayment.paymentStatus">  
+                                    <select name="paymentStatus" class="form-control" placeholder="Payment Status" (change)="onPaymentStatusSelect()" [(ngModel)]="newPayment.paymentStatus">  
                                                 <option value="Paid">
                                                   Paid
                                                 </option>
@@ -343,7 +343,7 @@
                             <div class="col-md-3">
                                 <div class="form-group form-black label-floating is-empty">
                                     <label class="control-label">Internet Plan</label>
-                                    <select name="internetPlan" class="form-control" placeholder="Internet Plan" (change)="onConnectionSelect()" [(ngModel)]="newPayment.internetPlan">  
+                                    <select name="internetPlan" class="form-control"  (change)="onConnectionSelect()" [(ngModel)]="newPayment.internetPlan">  
                                                 <option value="Paid">
                                                   Paid
                                                 </option>
@@ -356,7 +356,7 @@
                             <div class="col-md-3">
                                 <div class="form-group form-black label-floating is-empty">
                                     <label class="control-label">Payment Method</label>
-                                    <select name="paymentMethod" class="form-control" placeholder="Payment Method" (change)="onConnectionSelect()" [(ngModel)]="newPayment.paymentMethod">  
+                                    <select name="paymentMethod" class="form-control" placeholder="Payment Method" [disabled]="!paymentMethodField" (change)="onConnectionSelect()" [(ngModel)]="newPayment.paymentMethod">  
                                                 <option value="Cash">
                                                   Cash
                                                 </option>
@@ -371,8 +371,8 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group form-black label-floating is-empty">
-                                    <label class="control-label">Invoice No</label>
-                                    <input type="text" class="form-control" [(ngModel)]="newPayment.invoiceNo" name="invoiceNo">
+                                    <!-- <label class="control-label">Invoice No</label> -->
+                                    <input type="text" class="form-control" [disabled]="!invoiceNoField" [(ngModel)]="newPayment.invoiceNo" name="invoiceNo">
                                 </div>
                             </div>
 
@@ -390,11 +390,11 @@
                                         </div>
                                     </div>
                                 </div> -->
-                        <input type="file" (change)="selectFile($event)">
-                        <button [disabled]="!selectedFiles" (click)="upload()">Upload</button>
-                        <button type="button" class="btn btn-danger pull-right">Send Invoice</button>
-                        <button type="button" class="btn btn-danger pull-right" (click)="generateInvoice()">Invoice</button>
-                        <button type="submit" class="btn btn-danger pull-right">Recharge</button>
+                        <input type="file" (change)="selectFile($event)" >
+                        <button [disabled]="!selectedFiles" class="btn btn-danger" (click)="upload()">Send Email</button>
+                        <!-- <button type="button" class="btn btn-danger pull-right">Send Invoice</button> -->
+                        <button type="button" class="btn btn-danger pull-right" [disabled]="!invoiceBtn" (click)="generateInvoice()">Get Invoice</button>
+                        <button type="submit" class="btn btn-danger pull-right"  >Recharge</button>
                         <div class="clearfix"></div>
                     </form>
                 </div>

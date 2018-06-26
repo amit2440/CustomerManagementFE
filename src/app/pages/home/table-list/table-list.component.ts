@@ -36,6 +36,7 @@ export class TableListComponent implements OnInit {
   showHide: false;
   isAddConnection:boolean= false;
   isRecharge:boolean = false;
+  maxInvoiceNo:String;
 
   constructor(private uploadService: UploadFileService,private custService: CustomerService,private connectionService: ConnectionService,
   private paymentService: PaymentService) { }
@@ -43,6 +44,7 @@ export class TableListComponent implements OnInit {
   ngOnInit() {
     this.getAllCustomers();
     this.getAllConnections();
+    this.getMaxInvoiceNo();
   }
 
   showHistory(){
@@ -130,6 +132,15 @@ export class TableListComponent implements OnInit {
         .catch(error => console.log(error));
  }
 
+ getMaxInvoiceNo(): void{
+   this.paymentService.getMaxInvoiceNo()
+   .then(result=>{
+      this.maxInvoiceNo = result.invoiceNo;
+     // this.newPayment.invoiceNo = this.maxInvoiceNo;
+    //  console.log(this.maxInvoiceNo);
+   })
+   .catch(error => console.log(error));
+ }
  
  getAllConnections(): void {
   this.connectionService
@@ -299,6 +310,7 @@ export class TableListComponent implements OnInit {
         this.connectionForSelectedCust = cust.connections;
         this.selectedCustomer.firstName = cust.firstName;
         this.selectedCustomer.lastName = cust.lastName;
+        this.addConnBtn = true;
         return;
       }
     })
@@ -307,9 +319,11 @@ export class TableListComponent implements OnInit {
 
 
   onConnectionSelect():void{
-    this.allCustomers.forEach(cust => {
-     if(cust.customerId == this.selectedCustomer.customerId){
-       this.connectionForSelectedCust = cust.connections;
+    this.allConnections.forEach(conn => {
+     if(conn.connectionId == this.selectedConnection.connectionId){
+       this.selectedConnection.connectionName = conn.connectionName;
+       this.historyBtn = true;
+       this.rechargeHomeBtn = true;
        return;
      }
    })
@@ -336,12 +350,13 @@ generateInvoice():void{
   this.doc.setFontSize(40);
 this.doc.text('Infinity Network',45, 25)
 this.doc.save(date.getMonth()+'-'+date.getFullYear()+'-'+this.selectedCustomer.firstName+'.pdf')
-
+this.chooseFile = true;
+this.newPayment.invoiceNo = "INV"+'-'+(parseInt(this.maxInvoiceNo.split('-')[1])+1);
 }
 
 onRecharge():void {
   this.newPayment.connectionId = this.selectedConnection.connectionId;
-  console.log(this.doc);
+  console.log(this.newPayment);
    this.response = this.paymentService.create(this.newPayment);
   this.errorMessage = this.connectionService.errorMessage;
   this.errorMessage = JSON.parse(this.errorMessage).message;
@@ -363,7 +378,28 @@ selectedFiles: FileList;
     });
     this.selectedFiles = undefined;
   }
- 
 
+  invoiceBtn:boolean=false;
+  sendInvoiceBtn:boolean=false;
+  invoiceNoField= false;
+  paymentMethodField = false;
+  rechargeBtn= false;
+  chooseFile = false;
+  rechargeHomeBtn= false;
+  addConnBtn= false;
+  historyBtn= false;
+
+  onPaymentStatusSelect(): void{
+    if(this.newPayment.paymentStatus=="Paid"){
+      this.invoiceBtn = true;
+      this.paymentMethodField = true;
+  }
+
+  if(this.newPayment.paymentStatus=="Not Paid"){
+    this.invoiceBtn = false;
+    this.paymentMethodField = false;
+}
+      //this.invoiceNoField = true;
+  }
 
 }
