@@ -48,6 +48,7 @@ export class TableListComponent implements OnInit {
   }
 
   showHistory(){
+    this.getAllConnections();
     this.isHistory = true;
     this.isAddConnection = false;
     this.isRecharge = false;
@@ -136,6 +137,8 @@ export class TableListComponent implements OnInit {
    this.paymentService.getMaxInvoiceNo()
    .then(result=>{
       this.maxInvoiceNo = result.invoiceNo;
+      if(this.maxInvoiceNo == null)
+        this.maxInvoiceNo = "INV-1000";
      // this.newPayment.invoiceNo = this.maxInvoiceNo;
     //  console.log(this.maxInvoiceNo);
    })
@@ -338,25 +341,73 @@ export class TableListComponent implements OnInit {
  onConnectionAdd(): void{
    this.newConnection.customer = this.selectedCustomer;
    this.newConnection.addresses = this.newAddress;
+ // this.newConnection.addresses.connection = this.newConnection;   
   this.response = this.connectionService.create(this.newConnection);
   this.errorMessage = this.connectionService.errorMessage;
   this.errorMessage = JSON.parse(this.errorMessage).message;
  }
 
-  doc = new jspdf();
+  
 
 generateInvoice():void{
-  let date = new Date();
-  this.doc.setFontSize(40);
-this.doc.text('Infinity Network',45, 25)
-this.doc.save(date.getMonth()+'-'+date.getFullYear()+'-'+this.selectedCustomer.firstName+'.pdf')
-this.chooseFile = true;
+  //  let date = new Date();
+  // this.doc.setFontSize(40);
+  // this.doc.addImage(img);
+  // //this.doc.text('Infinity Network',45, 25)
+  // this.doc.
+  
+//this.doc.save(date.getMonth()+'-'+date.getFullYear()+'-'+this.selectedCustomer.firstName+'.pdf')
+//this.chooseFile = true;
+this.getImageFromUrl('Invoice_Logo.jpg', this.createPDF);
 this.newPayment.invoiceNo = "INV"+'-'+(parseInt(this.maxInvoiceNo.split('-')[1])+1);
 }
 
+createPDF = function(imgData) {
+	  var doc = new jspdf();
+    let date = new Date();
+	  doc.addImage(imgData, 'JPEG', 10, 10, 50, 50);
+	  doc.addImage(imgData, 'JPEG', 70, 10, 100, 120);
+    this.doc.save(date.getMonth()+'-'+date.getFullYear()+'-'+this.selectedCustomer.firstName+'.pdf')
+	// Output as Data URI
+	doc.output('datauri');
+}
+
+getImageFromUrl = function(url, callback) {
+	var img = new Image, data, ret={data: null, pending: true};
+	
+	 img.onerror = function() {
+	 	throw new Error('Cannot load image: "'+url+'"');
+   }
+   
+	img.onload = function() {
+		var canvas = document.createElement('canvas');
+		document.body.appendChild(canvas);
+		canvas.width = img.width;
+		canvas.height = img.height;
+
+		var ctx = canvas.getContext('2d');
+		ctx.drawImage(img, 0, 0);
+		// Grab the image as a jpeg encoded in base64, but only the data
+		data = canvas.toDataURL('image/jpeg').slice('data:image/jpeg;base64,'.length);
+		// Convert the data to binary form
+		data = atob(data)
+		document.body.removeChild(canvas);
+
+		ret['data'] = data;
+		ret['pending'] = false;
+		if (typeof callback === 'function') {
+			callback(data);
+		}
+	}
+	img.src = url;
+	return ret;
+}
+
 onRecharge():void {
-  this.newPayment.connectionId = this.selectedConnection.connectionId;
-  console.log(this.newPayment);
+  let conn = new Connection();
+  conn.connectionId = this.selectedConnection.connectionId;
+  this.newPayment.connection = conn;
+  this.newPayment.date = new Date();
    this.response = this.paymentService.create(this.newPayment);
   this.errorMessage = this.connectionService.errorMessage;
   this.errorMessage = JSON.parse(this.errorMessage).message;
@@ -395,11 +446,23 @@ selectedFiles: FileList;
       this.paymentMethodField = true;
   }
 
-  if(this.newPayment.paymentStatus=="Not Paid"){
-    this.invoiceBtn = false;
-    this.paymentMethodField = false;
-}
+    if(this.newPayment.paymentStatus=="Not Paid"){
+      this.invoiceBtn = false;
+      this.paymentMethodField = false;
+    }
       //this.invoiceNoField = true;
   }
+
+  formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+}
 
 }

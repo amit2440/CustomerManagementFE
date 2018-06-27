@@ -432,12 +432,13 @@ getNewConnectionForDash(): DashBoardTable[]{
    getPaidUpaidConnections(value:any[], args:any[]) : Connection[] {
       let paidUnpaidConnection = new Array();
       value.forEach(connection =>{
-        connection.payments.forEach(payment => {
-          if(payment.paymentStatus==args[0])
+        for(let i =0;i <connection.payments.length;i++){
+           if(connection.payments[i].paymentStatus==args[0])
               paidUnpaidConnection.push(connection);
+              break;
+          }
       });
-    });
-    return paidUnpaidConnection;
+     return paidUnpaidConnection;
   }
 
    /*getNewPastConnections(value:any[], args:any[]) : Connection[] {

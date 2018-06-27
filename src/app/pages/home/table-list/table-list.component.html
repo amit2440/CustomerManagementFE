@@ -223,12 +223,18 @@
                             <div class="col-md-3">
                                 <div class="form-group form-black label-floating is-empty">
                                     <label class="control-label">Connection Status</label>
-                                    <input type="text" class="form-control" name="connectionStatus" [(ngModel)]="newConnection.connectionStatus">
+                                    <select name="connectionStatus" class="form-control"   [(ngModel)]="newConnection.connectionStatus">  
+                                                <option value="Active">
+                                                  Active
+                                                </option>
+                                                <option value="Inactive">
+                                                  Inactive
+                                                </option>
+                                              </select>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group form-black label-floating is-empty">
-                                    <label class="control-label">Connection Date</label>
                                     <input type="date" class="form-control" name="connectionDate" [(ngModel)]="newConnection.connectionDate">
                                 </div>
                             </div>
@@ -255,7 +261,7 @@
                             <div class="col-md-3">
                                 <div class="form-group form-black label-floating is-empty">
                                     <label class="control-label">Country</label>
-                                    <input type="text" class="form-control" name="addresses.country" [(ngModel)]="newAddress.country">
+                                    <input type="text" value = "India" class="form-control" name="addresses.country" [(ngModel)]="newAddress.country">
                                 </div>
                             </div>
                             <div class="col-md-3">

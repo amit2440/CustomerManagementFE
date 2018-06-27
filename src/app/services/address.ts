@@ -1,4 +1,4 @@
-
+import { Connection } from "./connection";
 
 export class Address{
     addressId: number;
@@ -6,5 +6,6 @@ export class Address{
     city: String;
     country:String;
     pinCode: number;
+    connection: Connection;
     constructor(){}
 }

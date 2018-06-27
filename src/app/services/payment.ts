@@ -1,3 +1,4 @@
+import { Connection } from "./connection";
 
 export class Payment{
     paymentId: number;
@@ -9,6 +10,6 @@ export class Payment{
     paymentTo: Date;
     internetPlan: String;
    invoiceNo: String;
-   connectionId: number;
+   connection: Connection;
    constructor(){}
 }
