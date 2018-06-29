@@ -42,7 +42,7 @@ export class PaymentService {
   			let options = new RequestOptions({ headers: headers })
 			return this.http
 			  .post("http://localhost:8080/custManagement/addPayment", JSON.stringify(payment), options)
-			  .toPromise()
+			  .toPromise() 
 			  .then(res => res.json() as Payment)
 			  .catch(this.handleError);
 		  }
@@ -60,6 +60,18 @@ export class PaymentService {
 			return this.http
 			  .get("http://localhost:8080/custManagement/getMaxInvoiceNo")
 			  .toPromise()
+			  .then(res => res.json() as Payment)
+			  .catch(this.handleError);
+		  }
+
+
+		  update(payment: Payment): Promise<Payment> {
+			const headers = new Headers();
+  			headers.append('Content-Type', 'application/json');
+  			let options = new RequestOptions({ headers: headers })
+			return this.http
+			  .post("http://localhost:8080/custManagement/updatePayment", JSON.stringify(payment), options)
+			  .toPromise() 
 			  .then(res => res.json() as Payment)
 			  .catch(this.handleError);
 		  }

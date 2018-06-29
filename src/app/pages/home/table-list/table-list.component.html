@@ -1,391 +1,280 @@
 <div class="main-content">
-    <div class="container-fluid">
-        <!--div class="row"-->
-        <div class="col-md-12">
-            <!-- <div class="card">
-                    <div class="card-header" data-background-color="red">
-                        <h4 class="title">Simple Table</h4>
-                        <p class="category">Here is a subtitle for this table</p>
-                    </div>
-                    <div class="card-content table-responsive">
-                        <table class="table">
-                            <thead class="text-danger">
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Country</th>
-                                    <th>City</th>
-                                    <th>Salary</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Dakota Rice</td>
-                                    <td>Niger</td>
-                                    <td>Oud-Turnhout</td>
-                                    <td class="text-danger">$36,738</td>
-                                </tr>
-                                <tr>
-                                    <td>Minerva Hooper</td>
-                                    <td>Curaçao</td>
-                                    <td>Sinaai-Waas</td>
-                                    <td class="text-danger">$23,789</td>
-                                </tr>
-                                <tr>
-                                    <td>Sage Rodriguez</td>
-                                    <td>Netherlands</td>
-                                    <td>Baileux</td>
-                                    <td class="text-danger">$56,142</td>
-                                </tr>
-                                <tr>
-                                    <td>Philip Chaney</td>
-                                    <td>Korea, South</td>
-                                    <td>Overland Park</td>
-                                    <td class="text-danger">$38,735</td>
-                                </tr>
-                                <tr>
-                                    <td>Doris Greene</td>
-                                    <td>Malawi</td>
-                                    <td>Feldkirchen in Kärnten</td>
-                                    <td class="text-danger">$63,542</td>
-                                </tr>
-                                <tr>
-                                    <td>Mason Porter</td>
-                                    <td>Chile</td>
-                                    <td>Gloucester</td>
-                                    <td class="text-danger">$78,615</td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                    </div>
-                </div> -->
-            <div class="card">
-                <div class="card-header" data-background-color="red">
-                    <h4 class="title">Search Customer</h4>
-                    <!-- <p class="category">Complete the profile</p> -->
-                </div>
-                <div class="card-content">
-                    <!-- <div class="row"> -->
-                    <!-- <div class="col-md-12"> -->
-                    <!-- <form class="navbar-form navbar-left" role="search" (ngSubmit)="search()">
-                            <div class="col-md-3">
-                            <div class="form-group form-black is-empty">
-                                    <input type="text" class="form-control" placeholder="Name"  [(ngModel)] ="searchCustomer.firstName"  name="firstName">
-                                    <span class="material-input"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-1" >OR</div>
-                            
-                        <div class="col-md-3">
-                        <div class="form-group form-black is-empty">
-                             <input type="text" class="form-control" placeholder="Email Id" [(ngModel)] ="searchCustomer.emailId"  name="emailId">
-                             <span class="material-input"></span>
-                        </div>    
-                        </div>
-                        <div class="col-md-1">OR</div>
-                        <div class="col-md-3">
-                        <div class="form-group form-black is-empty">
-                                <input type="number" class="form-control" placeholder="Mobile Number" [(ngModel)] ="searchCustomer.mobileNo"  name="mobileNo">
-                                <span class="material-input"></span>
-                        </div>
-                        </div>
-                        <div class="col-md-1"></div>
-                        <div class="col-md-1">
-                        <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                            <i class="material-icons" >search</i><div class="ripple-container"></div>
-                        </button>
-                        </div>
-                        </form> -->
-                    <!-- </div> -->
-                    <form role="search" (ngSubmit)="search()">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group form-black label-floating is-empty">
-                                    <label class="control-label">Name</label>
-                                    <input type="text" class="form-control" [(ngModel)]="searchCustomer.firstName" name="firstName">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group form-black label-floating is-empty">
-                                    <label class="control-label">Email Id</label>
-                                    <input type="text" class="form-control" [(ngModel)]="searchCustomer.emailId" name="emailId">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group form-black label-floating is-empty">
-                                    <label class="control-label">Mobile Number</label>
-                                    <input type="number" class="form-control" [(ngModel)]="searchCustomer.mobileNo" name="mobileNo">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group form-black label-floating is-empty">
-                                    <button type="submit" class="btn btn-red btn-round btn-just-icon">
-                                                            <i class="material-icons" >search</i><div class="ripple-container"></div>
-                                                        </button>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- </form> -->
-
-                        <!-- </div> -->
-                        <!-- </div> -->
-
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group form-black label-floating is-empty">
-                                    <label class="control-label">Customer Name</label>
-                                    <select name="Customer Name" class="form-control" placeholder="Select Customer" [(ngModel)]="selectedCustomer.customerId" (change)="onCustSelect()">
-                                            <option  class="form-control" *ngFor="let cust of currentSearchedCustomer" value= {{cust.customerId}}>
-                                              {{cust.firstName+' '+cust.mobileNo}}
-                                            </option>
-                                          </select>
-                                    <span class="material-input"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group form-black label-floating is-empty">
-                                    <label class="control-label">Connection Id</label>
-                                    <select name="Connection Name" class="form-control" (change)="onConnectionSelect()" [(ngModel)]="selectedConnection.connectionId">
-                                                <option  class="form-control" *ngFor="let conn of connectionForSelectedCust" value= {{conn.connectionId}}>
-                                                  {{conn.connectionName}}
-                                                </option>
-                                              </select>
-                                    <span class="material-input"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
+        <div class="container-fluid">
+            <!--div class="row"-->
             <div class="col-md-12">
-                <div class="row">
-                    <button type="button"  [disabled]="!historyBtn"  class="btn btn-danger pull-left" (click)="showHistory()">History</button>
-                    <button type="submit" [disabled]="!addConnBtn"  class="btn btn-danger pull-left" (click)="addConnection()">Add Connection</button>
-                    <button type="submit"  [disabled]="!rechargeHomeBtn" class="btn btn-danger pull-left" (click)="recharge()">Recharge</button>
-                </div>
-            </div>
-            <div class="row">
-                <br><br/>
-                <div class="col-lg-12 col-md-12" id="detailsArea" *ngIf="isHistory">
-                    <div class="card" ng-show="showHist">
-                        <div class="card-header" data-background-color="orange">
-                            <h4 class="title">Connection Details</h4>
-                            <p class="category">Details of Connection</p>
+                <!-- <div class="card">
+                        <div class="card-header" data-background-color="red">
+                            <h4 class="title">Simple Table</h4>
+                            <p class="category">Here is a subtitle for this table</p>
                         </div>
                         <div class="card-content table-responsive">
-                            <table class="table table-hover">
-                                <thead class="text-warning">
+                            <table class="table">
+                                <thead class="text-danger">
                                     <tr>
-                                        <th *ngFor="let col of paymentDetailsHeaders">
-                                            {{col}}
-                                        </th>
+                                        <th>Name</th>
+                                        <th>Country</th>
+                                        <th>City</th>
+                                        <th>Salary</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let data of paymentDetailsContent">
-                                        <td *ngFor="let col of paymentDetailsHeaders">
-                                            {{data[col]}}
-                                        </td>
+                                    <tr>
+                                        <td>Dakota Rice</td>
+                                        <td>Niger</td>
+                                        <td>Oud-Turnhout</td>
+                                        <td class="text-danger">$36,738</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Minerva Hooper</td>
+                                        <td>Curaçao</td>
+                                        <td>Sinaai-Waas</td>
+                                        <td class="text-danger">$23,789</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sage Rodriguez</td>
+                                        <td>Netherlands</td>
+                                        <td>Baileux</td>
+                                        <td class="text-danger">$56,142</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Philip Chaney</td>
+                                        <td>Korea, South</td>
+                                        <td>Overland Park</td>
+                                        <td class="text-danger">$38,735</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Doris Greene</td>
+                                        <td>Malawi</td>
+                                        <td>Feldkirchen in Kärnten</td>
+                                        <td class="text-danger">$63,542</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mason Porter</td>
+                                        <td>Chile</td>
+                                        <td>Gloucester</td>
+                                        <td class="text-danger">$78,615</td>
                                     </tr>
                                 </tbody>
                             </table>
+    
+                        </div>
+                    </div> -->
+                <div class="card">
+                    <div class="card-header" data-background-color="red">
+                        <h4 class="title">Search Customer</h4>
+                        <!-- <p class="category">Complete the profile</p> -->
+                    </div>
+                    <div class="card-content">
+                        <!-- <div class="row"> -->
+                        <!-- <div class="col-md-12"> -->
+                        <!-- <form class="navbar-form navbar-left" role="search" (ngSubmit)="search()">
+                                <div class="col-md-3">
+                                <div class="form-group form-black is-empty">
+                                        <input type="text" class="form-control" placeholder="Name"  [(ngModel)] ="searchCustomer.firstName"  name="firstName">
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-1" >OR</div>
+    
+                            <div class="col-md-3">
+                            <div class="form-group form-black is-empty">
+                                 <input type="text" class="form-control" placeholder="Email Id" [(ngModel)] ="searchCustomer.emailId"  name="emailId">
+                                 <span class="material-input"></span>
+                            </div>    
+                            </div>
+                            <div class="col-md-1">OR</div>
+                            <div class="col-md-3">
+                            <div class="form-group form-black is-empty">
+                                    <input type="number" class="form-control" placeholder="Mobile Number" [(ngModel)] ="searchCustomer.mobileNo"  name="mobileNo">
+                                    <span class="material-input"></span>
+                            </div>
+                            </div>
+                            <div class="col-md-1"></div>
+                            <div class="col-md-1">
+                            <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                                <i class="material-icons" >search</i><div class="ripple-container"></div>
+                            </button>
+                            </div>
+                            </form> -->
+                        <!-- </div> -->
+                        <form role="search" (ngSubmit)="search()">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Name</label>
+                                        <input type="text" class="form-control" [(ngModel)]="searchCustomer.firstName" name="firstName">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Email Id</label>
+                                        <input type="text" class="form-control" [(ngModel)]="searchCustomer.emailId" name="emailId">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Mobile Number</label>
+                                        <input type="number" class="form-control" [(ngModel)]="searchCustomer.mobileNo" name="mobileNo">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <button type="submit" class="btn btn-red btn-round btn-just-icon">
+                                            <i class="material-icons">search</i>
+                                            <div class="ripple-container"></div>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- </form> -->
+    
+                            <!-- </div> -->
+                            <!-- </div> -->
+    
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Customer Name</label>
+                                        <select name="Customer Name" class="form-control" placeholder="Select Customer" [(ngModel)]="selectedCustomer.customerId" (change)="onCustSelect()">
+                                            <option class="form-control" *ngFor="let cust of currentSearchedCustomer" value={{cust.customerId}}>
+                                                {{cust.firstName+' '+cust.mobileNo}}
+                                            </option>
+                                        </select>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Connection Id</label>
+                                        <select name="Connection Name" class="form-control" (change)="onConnectionSelect()" [(ngModel)]="selectedConnection.connectionId">
+                                            <option class="form-control" *ngFor="let conn of connectionForSelectedCust" value={{conn.connectionId}}>
+                                                {{conn.connectionName}}
+                                            </option>
+                                        </select>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+    
+                <div class="col-md-12">
+                    <div class="row">
+                        <button type="button" [disabled]="!historyBtn" class="btn btn-danger pull-left" (click)="showHistory()">History</button>
+                        <button type="submit" [disabled]="!addConnBtn" class="btn btn-danger pull-left" (click)="addConnection()">Add Connection</button>
+                        <button type="submit" [disabled]="!rechargeHomeBtn" class="btn btn-danger pull-left" (click)="recharge()">Recharge</button>
+                        <button type="button" [disabled]="!updatePaymentBtn" class="btn btn-danger pull-left" (click)="updatePaymentClick()">Update Payment</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <br>
+                    <br/>
+                    <div class="col-lg-12 col-md-12" id="detailsArea" *ngIf="isHistory">
+                        <div class="card" ng-show="showHist">
+                            <div class="card-header" data-background-color="orange">
+                                <h4 class="title">Connection Details</h4>
+                                <p class="category">Details of Connection</p>
+                            </div>
+                            <div class="card-content table-responsive">
+                                <table class="table table-hover">
+                                    <thead class="text-warning">
+                                        <tr>
+                                            <th *ngFor="let col of paymentDetailsHeaders">
+                                                {{col}}
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let data of paymentDetailsContent">
+                                            <td *ngFor="let col of paymentDetailsHeaders">
+                                                {{data[col]}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="card" *ngIf="isAddConnection">
-
-                <div class="card-header" data-background-color="red">
-                    <h4 class="title">Add Connection</h4>
-                    <p class="category">New Connection Details</p>
-                </div>
-                <div class="card-content">
-                    <form (ngSubmit)="onConnectionAdd()">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group form-black label-floating is-empty">
-                                    <!-- <label class="control-label">Customer Name</label> -->
-                                    <input type="text" class="form-control" value="{{selectedCustomer.firstName +' '+selectedCustomer.lastName}}" name="custName">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group form-black label-floating is-empty">
-                                    <label class="control-label">Connection Name</label>
-                                    <input type="text" class="form-control" name="connectionName" [(ngModel)]="newConnection.connectionName">
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group form-black label-floating is-empty">
-                                    <label class="control-label">Connection Status</label>
-                                    <select name="connectionStatus" class="form-control"   [(ngModel)]="newConnection.connectionStatus">  
-                                                <option value="Active">
-                                                  Active
-                                                </option>
-                                                <option value="Inactive">
-                                                  Inactive
-                                                </option>
-                                              </select>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group form-black label-floating is-empty">
-                                    <input type="date" class="form-control" name="connectionDate" [(ngModel)]="newConnection.connectionDate">
-                                </div>
-                            </div>
-
-
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group form-black label-floating is-empty">
-                                    <label class="control-label">Address</label>
-                                    <input type="text" class="form-control" name="addresses.address" [(ngModel)]="newAddress.address">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group form-black label-floating is-empty">
-                                    <label class="control-label">City</label>
-                                    <input type="text" class="form-control" name="addresses.city" [(ngModel)]="newAddress.city">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group form-black label-floating is-empty">
-                                    <label class="control-label">Country</label>
-                                    <input type="text" value = "India" class="form-control" name="addresses.country" [(ngModel)]="newAddress.country">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group form-black label-floating is-empty">
-                                    <label class="control-label">Postal Code</label>
-                                    <input type="text" class="form-control" name="addresses.pinCode" [(ngModel)]="newAddress.pinCode">
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>About Me</label>
-                                        <div class="form-group form-black label-floating is-empty">
-                                            <label class="control-label"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>
-                                            <textarea class="form-control" rows="5"></textarea>
-                                        </div>
+    
+                <div class="card" *ngIf="isAddConnection">
+    
+                    <div class="card-header" data-background-color="red">
+                        <h4 class="title">Add Connection</h4>
+                        <p class="category">New Connection Details</p>
+                    </div>
+                    <div class="card-content">
+                        <form (ngSubmit)="onConnectionAdd()">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <!-- <label class="control-label">Customer Name</label> -->
+                                        <input type="text" class="form-control" value="{{selectedCustomer.firstName +' '+selectedCustomer.lastName}}" name="custName">
                                     </div>
                                 </div>
-                            </div> -->
-
-                        <button type="submit" class="btn btn-danger pull-right">Add Connection</button>
-                        <div class="clearfix"></div>
-                    </form>
-                </div>
-            </div>
-
-            <div class="card" *ngIf="isRecharge">
-                <div class="card-header" data-background-color="red">
-                    <h4 class="title">Recharge</h4>
-                    <p class="category">Add Recharge Details</p>
-                </div>
-                <div class="card-content">
-                    <form (ngSubmit)="onRecharge()">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group form-black label-floating is-empty">
-                                    <input type="text" class="form-control" [disabled]=true value="{{selectedCustomer.firstName +' '+selectedCustomer.lastName}}" name="custName">
+                                <div class="col-md-3">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Connection Name</label>
+                                        <input type="text" class="form-control" name="connectionName" [(ngModel)]="newConnection.connectionName">
+                                    </div>
+                                </div>
+    
+                            </div>
+    
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Connection Status</label>
+                                        <select name="connectionStatus" class="form-control" [(ngModel)]="newConnection.connectionStatus">
+                                            <option value="Active">
+                                                Active
+                                            </option>
+                                            <option value="Inactive">
+                                                Inactive
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <input type="date" class="form-control" name="connectionDate" [(ngModel)]="newConnection.connectionDate">
+                                    </div>
+                                </div>
+    
+                            </div>
+    
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Address</label>
+                                        <input type="text" class="form-control" name="addresses.address" [(ngModel)]="newAddress.address">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="form-group form-black label-floating is-empty">
-                                    <input type="text" class="form-control" [disabled]=true value="{{selectedConnection.connectionName}}" ng-change="false">
+    
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">City</label>
+                                        <input type="text" class="form-control" name="addresses.city" [(ngModel)]="newAddress.city">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Country</label>
+                                        <input type="text" value="India" class="form-control" name="addresses.country" [(ngModel)]="newAddress.country">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Postal Code</label>
+                                        <input type="text" class="form-control" name="addresses.pinCode" [(ngModel)]="newAddress.pinCode">
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="col-md-3">
-                                <div class="form-group form-black label-floating is-empty">
-                                    <label class="control-label">Payment Amount</label>
-                                    <input type="number" class="form-control" name="paymentAmount" [(ngModel)]="newPayment.paymentAmount">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group form-black label-floating is-empty">
-                                    <!-- <label class="control-label">From</label> -->
-                                    <input type="date" class="form-control" name="paymentFrom" [(ngModel)]="newPayment.paymentFrom">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group form-black label-floating is-empty">
-                                    <!-- <label class="control-label">To</label> -->
-                                    <input type="date" class="form-control" name="paymentTo" [(ngModel)]="newPayment.paymentTo">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group form-black label-floating is-empty">
-                                    <label class="control-label">Payment Status</label>
-                                    <select name="paymentStatus" class="form-control" placeholder="Payment Status" (change)="onPaymentStatusSelect()" [(ngModel)]="newPayment.paymentStatus">  
-                                                <option value="Paid">
-                                                  Paid
-                                                </option>
-                                                <option value="Not Paid">
-                                                  Not Paid
-                                                </option>
-                                              </select>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group form-black label-floating is-empty">
-                                    <label class="control-label">Internet Plan</label>
-                                    <select name="internetPlan" class="form-control"  (change)="onConnectionSelect()" [(ngModel)]="newPayment.internetPlan">  
-                                                <option value="Paid">
-                                                  Paid
-                                                </option>
-                                                <option value="Not Paid">
-                                                  Not Paid
-                                                </option>
-                                              </select>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group form-black label-floating is-empty">
-                                    <label class="control-label">Payment Method</label>
-                                    <select name="paymentMethod" class="form-control" placeholder="Payment Method" [disabled]="!paymentMethodField" (change)="onConnectionSelect()" [(ngModel)]="newPayment.paymentMethod">  
-                                                <option value="Cash">
-                                                  Cash
-                                                </option>
-                                                <option value="Cheque">
-                                                  Cheque
-                                                </option>
-                                                <option value="Tranfer">
-                                                  Transfer
-                                                </option>
-                                              </select>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group form-black label-floating is-empty">
-                                    <!-- <label class="control-label">Invoice No</label> -->
-                                    <input type="text" class="form-control" [disabled]="!invoiceNoField" [(ngModel)]="newPayment.invoiceNo" name="invoiceNo">
-                                </div>
-                            </div>
-
-
-                        </div>
-
-                        <!-- <div class="row">
+    
+                            <!-- <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>About Me</label>
@@ -396,82 +285,310 @@
                                         </div>
                                     </div>
                                 </div> -->
-                        <input type="file" (change)="selectFile($event)" >
-                        <button [disabled]="!selectedFiles" class="btn btn-danger" (click)="upload()">Send Email</button>
-                        <!-- <button type="button" class="btn btn-danger pull-right">Send Invoice</button> -->
-                        <button type="button" class="btn btn-danger pull-right" [disabled]="!invoiceBtn" (click)="generateInvoice()">Get Invoice</button>
-                        <button type="submit" class="btn btn-danger pull-right"  >Recharge</button>
-                        <div class="clearfix"></div>
+    
+                            <button type="submit" class="btn btn-danger pull-right">Add Connection</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+    
+                <div class="card" *ngIf="isRecharge">
+                    <div class="card-header" data-background-color="red">
+                        <h4 class="title">Recharge</h4>
+                        <p class="category">Add Recharge Details</p>
+                    </div>
+                    <div class="card-content">
+                        <form (ngSubmit)="onRecharge()">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <input type="text" class="form-control" [disabled]=true value="{{selectedCustomer.firstName +' '+selectedCustomer.lastName}}" name="custName">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <input type="text" class="form-control" [disabled]=true value="{{selectedConnection.connectionName}}" ng-change="false">
+                                    </div>
+                                </div>
+    
+                                <div class="col-md-3">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Payment Amount</label>
+                                        <input type="number" class="form-control" name="paymentAmount" [(ngModel)]="newPayment.paymentAmount">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <!-- <label class="control-label">From</label> -->
+                                        <input type="date" class="form-control" name="paymentFrom" [(ngModel)]="newPayment.paymentFrom">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <!-- <label class="control-label">To</label> -->
+                                        <input type="date" class="form-control" name="paymentTo" [(ngModel)]="newPayment.paymentTo">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Payment Status</label>
+                                        <select name="paymentStatus" class="form-control" placeholder="Payment Status" (change)="onPaymentStatusSelect()" [(ngModel)]="newPayment.paymentStatus">
+                                            <option value="Paid">
+                                                Paid
+                                            </option>
+                                            <option value="Not Paid">
+                                                Not Paid
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+    
+                            </div>
+    
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Internet Plan</label>
+                                        <select name="internetPlan" class="form-control" (change)="onConnectionSelect()" [(ngModel)]="newPayment.internetPlan">
+                                            <option value="Paid">
+                                                Paid
+                                            </option>
+                                            <option value="Not Paid">
+                                                Not Paid
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Payment Method</label>
+                                        <select name="paymentMethod" class="form-control" placeholder="Payment Method" [disabled]="!paymentMethodField" (change)="onConnectionSelect()" [(ngModel)]="newPayment.paymentMethod">
+                                            <option value="Cash">
+                                                Cash
+                                            </option>
+                                            <option value="Cheque">
+                                                Cheque
+                                            </option>
+                                            <option value="Tranfer">
+                                                Transfer
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <!-- <label class="control-label">Invoice No</label> -->
+                                        <input type="text" class="form-control" [disabled]="!invoiceNoField" [(ngModel)]="newPayment.invoiceNo" name="invoiceNo">
+                                    </div>
+                                </div>
+    
+                            </div>
+    
+                            <!-- <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>About Me</label>
+                                                <div class="form-group form-black label-floating is-empty">
+                                                    <label class="control-label"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>
+                                                    <textarea class="form-control" rows="5"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                            <input type="file" (change)="selectFile($event)">
+                            <button [disabled]="!selectedFiles" class="btn btn-danger" (click)="upload()">Send Email</button>
+                            <!-- <button type="button" class="btn btn-danger pull-right">Send Invoice</button> -->
+                            <button type="button" class="btn btn-danger pull-right" [disabled]="!invoiceBtn" (click)="generateInvoice()">Get Invoice</button>
+                            <button type="submit" class="btn btn-danger pull-right">Recharge</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+    
+                <div class="card" *ngIf="isUpdatePayment" #updateDiv>
+                    <div class="card-header" data-background-color="red">
+                        <h4 class="title">Payment</h4>
+                        <p class="category">Update Payment Details</p>
+                    </div>
+                    <div class="card-content">
+                        <form (ngSubmit)="onUpdatePaymentSubmit()">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <input type="radio" value="Paid" name="radiogroup" [(ngModel)]="updatePaymentRadio" (change)="onRadioSelect()"> Paid
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                     <div class="form-group form-black label-floating is-empty">
+                                     <input type="radio" value="NotPaid" name="radiogroup" [(ngModel)]="updatePaymentRadio" (change)="onRadioSelect()"> Unpaid
+                                     </div>
+                                
+                            </div>
+                            <div class="col-md-1"></div>
+                            <div class="col-md-3">
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label">Select Month</label>
+                                            <select name="paymentMonth" class="form-control" placeholder="Select Month" [(ngModel)]="updatePayment.paymentId"  (change)="onPaymentMonthSelect()">
+                                                <option class="form-control" *ngFor="let payment of paymentsForConn" value={{payment.paymentId}}>
+                                                    {{payment.radioPaymentFrom+' To '+payment.radioPaymentTo}}
+                                                </option>
+                                            </select>
+                                    </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group form-black label-floating is-empty">
+                                    <label class="control-label">Payment Amount</label>
+                                    <input type="number" class="form-control" name="paymentAmount" [(ngModel)]="updatePayment.paymentAmount">
+                                </div>
+                            </div>
+                    </div>
+                    <div class="row">
+                        
+                        <div class="col-md-3">
+                            <div class="form-group form-black label-floating is-empty">
+                                <label class="control-label">Payment Status</label>
+                                <select name="paymentStatus" class="form-control" placeholder="Payment Status" (change)="onUpdatePaymentStatusSelect()" [(ngModel)]="updatePayment.paymentStatus">
+                                    <option value="Paid">
+                                        Paid
+                                    </option>
+                                    <option value="Not Paid">
+                                        Not Paid
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                                <div class="form-group form-black label-floating is-empty">
+                                    <label class="control-label">Internet Plan</label>
+                                    <select name="internetPlan" class="form-control"  [(ngModel)]="updatePayment.internetPlan">
+                                        <option value="Paid">
+                                            Paid
+                                        </option>
+                                        <option value="Not Paid">
+                                            Not Paid
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group form-black label-floating is-empty">
+                                    <label class="control-label">Payment Method</label>
+                                    <select name="paymentMethod" class="form-control" placeholder="Payment Method" [disabled]="!updatePaymentMethodField"  [(ngModel)]="updatePayment.paymentMethod">
+                                        <option value="Cash">
+                                            Cash
+                                        </option>
+                                        <option value="Cheque">
+                                            Cheque
+                                        </option>
+                                        <option value="Tranfer">
+                                            Transfer
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>   
+                    </div>
+    
+                    <div class="row">
+                       
+                        <div class="col-md-3">
+                            <div class="form-group form-black label-floating is-empty">
+                                <!-- <label class="control-label">Invoice No</label> -->
+                                <input type="text" class="form-control" [disabled]="!updatePaymentInvoiceNoField" [(ngModel)]="updatePayment.invoiceNo" name="invoiceNo">
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                    <!-- <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>About Me</label>
+                                                    <div class="form-group form-black label-floating is-empty">
+                                                        <label class="control-label"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>
+                                                        <textarea class="form-control" rows="5"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                    <input type="file" (change)="selectFile($event)">
+                    <button [disabled]="!selectedFiles" class="btn btn-danger" (click)="upload()">Send Email</button>
+                    <!-- <button type="button" class="btn btn-danger pull-right">Send Invoice</button> -->
+                    <button type="button" class="btn btn-danger pull-right" [disabled]="!updateInvoiceBtn" (click)="generateInvoice()">Get Invoice</button>
+                    <button type="submit" class="btn btn-danger pull-right">Update</button>
+                    <div class="clearfix"></div>
                     </form>
                 </div>
             </div>
+    
         </div>
-
+    
         <!-- <div class="col-md-12">
-                <div class="card card-plain">
-                    <div class="card-header" data-background-color="red">
-                        <h4 class="title">Table on Plain Background</h4>
-                        <p class="category">Here is a subtitle for this table</p>
+                    <div class="card card-plain">
+                        <div class="card-header" data-background-color="red">
+                            <h4 class="title">Table on Plain Background</h4>
+                            <p class="category">Here is a subtitle for this table</p>
+                        </div>
+                        <div class="card-content table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Salary</th>
+                                        <th>Country</th>
+                                        <th>City</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Dakota Rice</td>
+                                        <td>$36,738</td>
+                                        <td>Niger</td>
+                                        <td>Oud-Turnhout</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Minerva Hooper</td>
+                                        <td>$23,789</td>
+                                        <td>Curaçao</td>
+                                        <td>Sinaai-Waas</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Sage Rodriguez</td>
+                                        <td>$56,142</td>
+                                        <td>Netherlands</td>
+                                        <td>Baileux</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>Philip Chaney</td>
+                                        <td>$38,735</td>
+                                        <td>Korea, South</td>
+                                        <td>Overland Park</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>Doris Greene</td>
+                                        <td>$63,542</td>
+                                        <td>Malawi</td>
+                                        <td>Feldkirchen in Kärnten</td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>Mason Porter</td>
+                                        <td>$78,615</td>
+                                        <td>Chile</td>
+                                        <td>Gloucester</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    <div class="card-content table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Salary</th>
-                                    <th>Country</th>
-                                    <th>City</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Dakota Rice</td>
-                                    <td>$36,738</td>
-                                    <td>Niger</td>
-                                    <td>Oud-Turnhout</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Minerva Hooper</td>
-                                    <td>$23,789</td>
-                                    <td>Curaçao</td>
-                                    <td>Sinaai-Waas</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Sage Rodriguez</td>
-                                    <td>$56,142</td>
-                                    <td>Netherlands</td>
-                                    <td>Baileux</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>Philip Chaney</td>
-                                    <td>$38,735</td>
-                                    <td>Korea, South</td>
-                                    <td>Overland Park</td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>Doris Greene</td>
-                                    <td>$63,542</td>
-                                    <td>Malawi</td>
-                                    <td>Feldkirchen in Kärnten</td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td>Mason Porter</td>
-                                    <td>$78,615</td>
-                                    <td>Chile</td>
-                                    <td>Gloucester</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div> -->
+                </div> -->
         <!-- </div> -->
     </div>
-</div>
+    </div>

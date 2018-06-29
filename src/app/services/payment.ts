@@ -11,5 +11,7 @@ export class Payment{
     internetPlan: String;
    invoiceNo: String;
    connection: Connection;
+   radioPaymentFrom: String;
+   radioPaymentTo: String;
    constructor(){}
 }

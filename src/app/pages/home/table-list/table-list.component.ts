@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,ViewChild,ElementRef} from '@angular/core';
 import { DashboardComponent } from '../../home/dashboard/dashboard.component';
 import { Connection } from '../../../services/connection';
 import { ConnectionService } from '../../../services/connection.service';
@@ -13,6 +13,9 @@ import  jspdf  from 'jspdf';
 import { UploadFileService } from '../../../services/fileUpload.service';
 import { HttpClient, HttpResponse, HttpEventType } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
+import { html2pdf } from 'html2pdf.js'
+
+
 
 
 @Component({
@@ -37,6 +40,7 @@ export class TableListComponent implements OnInit {
   isAddConnection:boolean= false;
   isRecharge:boolean = false;
   maxInvoiceNo:String;
+  @ViewChild('updateDiv') updateDiv: ElementRef;
 
   constructor(private uploadService: UploadFileService,private custService: CustomerService,private connectionService: ConnectionService,
   private paymentService: PaymentService) { }
@@ -53,18 +57,22 @@ export class TableListComponent implements OnInit {
     this.isAddConnection = false;
     this.isRecharge = false;
     this.paymentDetailsContent = this.getHistoryForConn();
+    this.isUpdatePayment = false;
   }
 
   addConnection(){
     this.isAddConnection = true;
     this.isHistory = false;
     this.isRecharge = false;
+    this.isUpdatePayment = false;
   }
 
   recharge(){
     this.isAddConnection = false;
     this.isHistory = false;
     this.isRecharge = true;
+    this.isUpdatePayment = false;
+    this.getMaxInvoiceNo();
   }
 
   getHistoryForConn(): PaymentDetails[]{
@@ -123,6 +131,8 @@ export class TableListComponent implements OnInit {
     })
     return paymentTable;
   }
+
+  
 
   getAllCustomers(): void {
     this.custService
@@ -325,8 +335,10 @@ export class TableListComponent implements OnInit {
     this.allConnections.forEach(conn => {
      if(conn.connectionId == this.selectedConnection.connectionId){
        this.selectedConnection.connectionName = conn.connectionName;
+       this.selectedConnection.payments = conn.payments;
        this.historyBtn = true;
        this.rechargeHomeBtn = true;
+       this.updatePaymentBtn = true;
        return;
      }
    })
@@ -347,29 +359,40 @@ export class TableListComponent implements OnInit {
   this.errorMessage = JSON.parse(this.errorMessage).message;
  }
 
-  
+invoiceLogoPath = '../assets/img/Invoice_Logo.jpg'
+doc = new jspdf(); 
 
 generateInvoice():void{
-  //  let date = new Date();
-  // this.doc.setFontSize(40);
-  // this.doc.addImage(img);
-  // //this.doc.text('Infinity Network',45, 25)
+    let date = new Date();
+   //this.doc.setFontSize(40);
+ //  var img = new Image();
+  // img.src =this.invoiceLogoPath; 
+  // this.doc.addImage(img,'JPEG', 10, 10, 50, 50);
+//this.doc.text('Infinity Network',45, 25)
   // this.doc.
   
-//this.doc.save(date.getMonth()+'-'+date.getFullYear()+'-'+this.selectedCustomer.firstName+'.pdf')
-//this.chooseFile = true;
-this.getImageFromUrl('Invoice_Logo.jpg', this.createPDF);
-this.newPayment.invoiceNo = "INV"+'-'+(parseInt(this.maxInvoiceNo.split('-')[1])+1);
+  //this.chooseFile = true;
+  
+  //var element = document.getElementById('updateDiv');
+//  html2pdf(this.updateDiv);
+  
+  //this.getImageFromUrl(this.invoiceLogoPath, this.createPDF);
+  this.doc.save(date.getMonth()+'-'+date.getFullYear()+'-'+this.selectedCustomer.firstName+'.pdf')
+  if(this.isRecharge)
+    this.newPayment.invoiceNo = "INV"+'-'+(parseInt(this.maxInvoiceNo.split('-')[1])+1);
+  if(this.isUpdatePayment)
+    this.updatePayment.invoiceNo = "INV"+'-'+(parseInt(this.maxInvoiceNo.split('-')[1])+1);
 }
 
 createPDF = function(imgData) {
-	  var doc = new jspdf();
+    var doc = new jspdf();
+    
     let date = new Date();
-	  doc.addImage(imgData, 'JPEG', 10, 10, 50, 50);
-	  doc.addImage(imgData, 'JPEG', 70, 10, 100, 120);
-    this.doc.save(date.getMonth()+'-'+date.getFullYear()+'-'+this.selectedCustomer.firstName+'.pdf')
+	  doc.addImage(imgData, 'jpg', 10, 10, 50, 50);
+	  //doc.addImage(imgData, 'JPEG', 70, 10, 100, 120);
+    doc.save(date.getMonth()+'-'+date.getFullYear()+'-'+this.selectedCustomer.firstName+'.pdf')
 	// Output as Data URI
-	doc.output('datauri');
+	  doc.output('datauri');
 }
 
 getImageFromUrl = function(url, callback) {
@@ -398,8 +421,10 @@ getImageFromUrl = function(url, callback) {
 		if (typeof callback === 'function') {
 			callback(data);
 		}
-	}
-	img.src = url;
+  }
+  console.log(url);
+  img.src = url;
+console.log(img.src);  
 	return ret;
 }
 
@@ -439,6 +464,10 @@ selectedFiles: FileList;
   rechargeHomeBtn= false;
   addConnBtn= false;
   historyBtn= false;
+  updatePaymentBtn = false;
+  isUpdatePayment =false;
+  paymentsForConn :  Payment[];
+  updatePaymentRadio :String;
 
   onPaymentStatusSelect(): void{
     if(this.newPayment.paymentStatus=="Paid"){
@@ -453,16 +482,94 @@ selectedFiles: FileList;
       //this.invoiceNoField = true;
   }
 
+  onRadioSelect(value:String):void{
+     this.connectionService.getAllConnections();
+     let conns = this.allConnections.filter(conn => conn.connectionId == this.selectedConnection.connectionId);
+     this.selectedConnection = conns[0];
+      if(this.updatePaymentRadio == "Paid"){
+        this.paymentsForConn = this.selectedConnection.payments.filter(payment => payment.paymentStatus == "Paid");
+        if(this.paymentsForConn.length>0){
+          this.paymentsForConn.forEach(payment =>{
+            payment.radioPaymentFrom = this.formatDate(payment.paymentFrom);
+            payment.radioPaymentTo = this.formatDate(payment.paymentTo);
+          })
+        }
+        return;
+      }
+      if(this.updatePaymentRadio == "NotPaid"){
+        this.paymentsForConn = this.selectedConnection.payments.filter(payment => payment.paymentStatus == "Not Paid");
+        if(this.paymentsForConn.length>0){
+          this.paymentsForConn.forEach(payment =>{
+            payment.radioPaymentFrom = this.formatDate(payment.paymentFrom);
+            payment.radioPaymentTo = this.formatDate(payment.paymentTo);
+          })
+        }
+        return;
+      }
+  }
+
   formatDate(date) {
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+    ];
     var d = new Date(date),
-        month = '' + (d.getMonth() + 1),
+        month = '' + monthNames[(d.getMonth())],
         day = '' + d.getDate(),
         year = d.getFullYear();
 
     if (month.length < 2) month = '0' + month;
     if (day.length < 2) day = '0' + day;
 
-    return [year, month, day].join('-');
+    return [day,month,year].join('-');
+}
+
+updatePaymentClick(): void{
+  this.isUpdatePayment = true;
+  this.isHistory = false;
+  this.isAddConnection = false;
+  this.isRecharge = false;
+  this.getMaxInvoiceNo();
+}
+
+updateInvoiceBtn = false;
+updatePaymentMethodField = false;
+updatePaymentInvoiceNoField = false;
+updatePayment = new Payment();
+
+onUpdatePaymentStatusSelect(): void{
+  if(this.updatePayment.paymentStatus=="Paid"){
+    this.updateInvoiceBtn = true;
+    this.updatePaymentMethodField = true;
+}
+
+  if(this.updatePayment.paymentStatus=="Not Paid"){
+    this.updateInvoiceBtn = false;
+    this.updatePaymentMethodField = false;
+  }
+}
+
+onUpdatePaymentSubmit():void{
+  let conn = new Connection();
+  conn.connectionId = this.selectedConnection.connectionId;
+  this.updatePayment.connection = conn;
+  this.updatePayment.date = new Date();
+  this.response = this.paymentService.update(this.updatePayment);
+  this.errorMessage = this.paymentService.errorMessage;
+  this.errorMessage = JSON.parse(this.errorMessage).message;
+}
+
+onPaymentMonthSelect():void{
+ 
+  let selectedConn = this.allConnections.filter(conn => conn.connectionId ==this.selectedConnection.connectionId);
+  let payments = selectedConn[0].payments.filter(payment => payment.paymentId == this.updatePayment.paymentId);
+  if(payments.length>0){
+    this.updatePayment.date = payments[0].date;
+    this.updatePayment.paymentAmount = payments[0].paymentAmount;
+    this.updatePayment.paymentStatus = payments[0].paymentStatus;
+    this.updatePayment.internetPlan = payments[0].internetPlan;
+    this.updatePayment.paymentMethod = payments[0].paymentMethod;
+    this.updatePayment.invoiceNo = payments[0].invoiceNo;
+  }
 }
 
 }
